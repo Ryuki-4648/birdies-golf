@@ -2,6 +2,7 @@
   text-align: center;
   background-color: #3b8c5a;
   height: 100vh;
+  position: relative;
 }
 
 .App-logo {
@@ -23,4 +24,28 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+.box {
+  background-color: #fff;
+  overflow-y: scroll;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.wrap {
+  height: 80vh;
+  width: 600px;
+}
+.c-button01 {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
 }
