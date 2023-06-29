@@ -1,8 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   text-align: center;
-  background-color: #3b8c5a;
   height: 100vh;
-  position: relative;
 }
 
 .App-logo {
@@ -26,10 +28,6 @@
   }
 }
 
-.flex {
-  display: flex;
-  align-items: center;
-}
 .box {
   background-color: #fff;
   overflow-y: scroll;
@@ -40,12 +38,5 @@
 }
 .wrap {
   height: 80vh;
-  width: 600px;
-}
-.c-button01 {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
+  width: 480px;
 }
