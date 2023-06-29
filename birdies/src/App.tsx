@@ -4,10 +4,23 @@ import "./App.css";
 
 function App() {
   const [parCounts, setParCounts] = useState(Array(19).fill(1)); // 1-18ホール分のパーを格納する配列。初期値を1とする。
-  const [scoreCounts, setScoreCounts] = useState(Array(19).fill(1));
+  const [scoreCounts, setScoreCounts] = useState(Array(19).fill(1)); // Array.prototype.fill() 開始位置〜終了位置（までのすべての要素を、静的な値に変更した配列を返す
+
   const [displayResultTexts, setDisplayResultTexts] = useState(
     Array(19).fill("")
   );
+  const [resultTotalScore, setResultTotalScore] = useState(0);
+
+  const onClickResultButton = () => {
+    const sum = scoreCounts.reduce(
+      (accumulator, currentValue) => accumulator + currentValue // accumulator: 現在の合計値 currentValue: 現在の要素の値
+    );
+    console.log(sum - 1);
+    console.log(scoreCounts);
+    console.log(parCounts);
+    setResultTotalScore(sum);
+  };
+
   const onClickFinishButton = (
     index: number,
     event: React.MouseEvent<HTMLButtonElement>
@@ -82,35 +95,35 @@ function App() {
     for (let i = 1; i < 19; i++) {
       tableRows.push(
         <tr key={i}>
-          <td>{i}</td>
-          <td>
-            <div className="flex">
+          <td className="w-20 text-xl font-semibold">{i}</td>
+          <td className="w-32">
+            <div className="flex items-center justify-center">
               <button
-                className="text-md c-button01"
+                className="text-md h-10 w-10 cursor-pointer rounded-full bg-blue-100"
                 onClick={(event) => parCountsChange(i, -i)}
               >
                 −
               </button>
-              <p>{parCounts[i]}</p>
+              <p className="mx-2 w-4">{parCounts[i]}</p>
               <button
-                className="text-md c-button01"
+                className="text-md h-10 w-10 cursor-pointer rounded-full bg-pink-100"
                 onClick={(event) => parCountsChange(i, 1)}
               >
                 ＋
               </button>
             </div>
           </td>
-          <td>
-            <div className="flex">
+          <td className="w-32">
+            <div className="flex items-center justify-center p-1">
               <button
-                className="text-md c-button01"
+                className="text-md h-10 w-10 cursor-pointer rounded-full bg-blue-100"
                 onClick={(event) => scoreCountsChange(i, -1)}
               >
                 −
               </button>
-              <p>{scoreCounts[i]}</p>
+              <p className="mx-2 w-4">{scoreCounts[i]}</p>
               <button
-                className="text-md c-button01"
+                className="text-md h-10 w-10 cursor-pointer rounded-full bg-pink-100"
                 onClick={(event) => scoreCountsChange(i, 1)}
               >
                 ＋
@@ -118,7 +131,7 @@ function App() {
             </div>
           </td>
           <td>
-            <p className="hoge">
+            <p className="text-sm">
               {displayResultTexts[i] ? displayResultTexts[i] : ""}
             </p>
           </td>
@@ -128,33 +141,48 @@ function App() {
     return tableRows;
   };
   return (
-    <div className="App">
+    <div className="App relative">
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
       </header>
       <div className="box">
-        <div className="wrap">
-          <table>
+        <div className="wrap p-4">
+          <table className="w-full">
             <thead>
               <tr>
-                <th>ホール</th>
-                <th>パー</th>
-                <th>スコア</th>
-                <th>コメント</th>
+                <th className="h-8 w-20">ホール</th>
+                <th className="h-8 w-32">パー</th>
+                <th className="h-8 w-32">スコア</th>
+                <th className="h-8">コメント</th>
               </tr>
             </thead>
             <tbody>{createTableRows()}</tbody>
           </table>
           <button
-            className="finish"
+            className="mt-12 h-12 w-40 cursor-pointer bg-gray-500"
             onClick={(event) => {
               onClickFinishButton(18, event);
             }}
           >
             Finish
           </button>
+          <button
+            className="mt-12 h-12 w-40 cursor-pointer bg-gray-200"
+            onClick={onClickResultButton}
+          >
+            Score
+          </button>
+          <div className="mt-8 flex items-center justify-center">
+            <p className="mr-2 text-3xl">Score :</p>
+            <p className="result-score text-5xl">{resultTotalScore}</p>
+          </div>
         </div>
       </div>
+      <img
+        src="./bg01.png"
+        alt=""
+        className="bg01 absolute left-1/2 top-1/2 -z-10 w-4/6"
+      />
     </div>
   );
 }
