@@ -81,11 +81,13 @@ function App() {
     }
   };
   const parCountsChange = (index: number, value: number) => {
+    if (parCounts[index] < 1) return;
     const newParCount = [...parCounts]; // parCounts配列をコピー　新しい配列の作成
     newParCount[index] += value; // 新しい配列のindex番目にvalueを足す
     setParCounts(newParCount);
   };
   const scoreCountsChange = (index: number, value: number) => {
+    if (scoreCounts[index] < 1) return;
     const newScoreCount = [...scoreCounts];
     newScoreCount[index] += value;
     setScoreCounts(newScoreCount);
@@ -99,8 +101,13 @@ function App() {
           <td className="w-32">
             <div className="flex items-center justify-center">
               <button
-                className="text-md h-10 w-10 cursor-pointer rounded-full bg-blue-100"
+                className={`text-md h-10 w-10 cursor-pointer rounded-full ${
+                  parCounts[i] < 2
+                    ? "cursor-not-allowed bg-gray-200"
+                    : "bg-blue-100"
+                }`}
                 onClick={(event) => parCountsChange(i, -i)}
+                disabled={parCounts[i] <= 1}
               >
                 −
               </button>
@@ -116,8 +123,13 @@ function App() {
           <td className="w-32">
             <div className="flex items-center justify-center p-1">
               <button
-                className="text-md h-10 w-10 cursor-pointer rounded-full bg-blue-100"
+                className={`text-md h-10 w-10 cursor-pointer rounded-full ${
+                  scoreCounts[i] < 2
+                    ? "cursor-not-allowed bg-gray-200"
+                    : "bg-blue-100"
+                }`}
                 onClick={(event) => scoreCountsChange(i, -1)}
+                disabled={scoreCounts[i] <= 1}
               >
                 −
               </button>
@@ -145,7 +157,7 @@ function App() {
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
       </header>
-      <div className="box">
+      <div className="box absolute left-1/2 top-1/2 z-10 overflow-y-scroll bg-white">
         <div className="wrap p-4">
           <table className="w-full">
             <thead>
@@ -181,7 +193,7 @@ function App() {
       <img
         src="./bg01.png"
         alt=""
-        className="bg01 absolute left-1/2 top-1/2 -z-10 w-4/6"
+        className="bg01 z-1 absolute left-1/2 top-1/2 w-4/6"
       />
     </div>
   );

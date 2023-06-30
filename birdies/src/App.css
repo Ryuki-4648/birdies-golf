@@ -6,14 +6,12 @@
   text-align: center;
   height: 100vh;
   overflow: hidden;
+  background-color: #98d3b5;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-.App-header {
 }
 
 .App-link {
@@ -30,15 +28,10 @@
 }
 
 .box {
-  background-color: #fff;
-  overflow-y: scroll;
-  position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
 }
 .wrap {
-  height: 80vh;
+  height: 85vh;
   width: 480px;
 }
 
