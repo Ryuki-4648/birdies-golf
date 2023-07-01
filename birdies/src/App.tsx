@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
@@ -19,6 +18,12 @@ function App() {
     console.log(scoreCounts);
     console.log(parCounts);
     setResultTotalScore(sum);
+  };
+
+  const onClickResetButton = () => {
+    setParCounts(Array(19).fill(1));
+    setScoreCounts(Array(19).fill(1));
+    setResultTotalScore(0);
   };
 
   const onClickFinishButton = (
@@ -97,7 +102,7 @@ function App() {
     for (let i = 1; i < 19; i++) {
       tableRows.push(
         <tr key={i}>
-          <td className="w-20 text-xl font-semibold">{i}</td>
+          <td className="w-20 font-semibold">{i}</td>
           <td className="w-32">
             <div className="flex items-center justify-center">
               <button
@@ -155,17 +160,21 @@ function App() {
   return (
     <div className="App relative">
       <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        <img
+          src="/logo01.png"
+          className="absolute left-8 top-8 w-40"
+          alt="logo"
+        />
       </header>
       <div className="box absolute left-1/2 top-1/2 z-10 overflow-y-scroll bg-white">
         <div className="wrap p-4">
           <table className="w-full">
             <thead>
               <tr>
-                <th className="h-8 w-20">ホール</th>
-                <th className="h-8 w-32">パー</th>
-                <th className="h-8 w-32">スコア</th>
-                <th className="h-8">コメント</th>
+                <th className="h-12 w-20">ホール</th>
+                <th className="h-12 w-32">パー</th>
+                <th className="h-12 w-32">スコア</th>
+                <th className="h-12">コメント</th>
               </tr>
             </thead>
             <tbody>{createTableRows()}</tbody>
@@ -184,16 +193,19 @@ function App() {
           >
             Score
           </button>
-          <div className="mt-8 flex items-center justify-center">
+          <div className="mb-4 mt-8 flex items-center justify-center">
             <p className="mr-2 text-3xl">Score :</p>
             <p className="result-score text-5xl">{resultTotalScore}</p>
           </div>
+          <p className="text-sm text-blue-600" onClick={onClickResetButton}>
+            リセットする
+          </p>
         </div>
       </div>
       <img
         src="./bg01.png"
         alt=""
-        className="bg01 z-1 absolute left-1/2 top-1/2 w-4/6"
+        className="bg01 z-1 absolute left-1/2 top-1/2 w-4/5 cursor-pointer"
       />
     </div>
   );
