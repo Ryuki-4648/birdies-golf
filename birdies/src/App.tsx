@@ -102,7 +102,7 @@ function App() {
     for (let i = 1; i < 19; i++) {
       tableRows.push(
         <tr key={i}>
-          <td className="w-20 font-semibold">{i}</td>
+          <td className="w-20 font-semibold text-gray-600">{i}</td>
           <td className="w-32">
             <div className="flex items-center justify-center">
               <button
@@ -166,15 +166,15 @@ function App() {
           alt="logo"
         />
       </header>
-      <div className="box absolute left-1/2 top-1/2 z-10 overflow-y-scroll bg-white">
-        <div className="wrap p-4">
+      <div className="box absolute left-1/2 top-1/2 z-10 overflow-y-scroll bg-white p-4">
+        <div className="wrap">
           <table className="w-full">
             <thead>
               <tr>
-                <th className="h-12 w-20">ホール</th>
-                <th className="h-12 w-32">パー</th>
-                <th className="h-12 w-32">スコア</th>
-                <th className="h-12">コメント</th>
+                <th className="h-12 w-20 text-xl">ホール</th>
+                <th className="h-12 w-32 text-xl">パー</th>
+                <th className="h-12 w-32 text-xl">スコア</th>
+                <th className="h-12 text-xl">コメント</th>
               </tr>
             </thead>
             <tbody>{createTableRows()}</tbody>
@@ -205,7 +205,7 @@ function App() {
       <img
         src="./bg01.png"
         alt=""
-        className="bg01 z-1 absolute left-1/2 top-1/2 w-4/5 cursor-pointer"
+        className="bg01 z-1 absolute left-1/2 top-1/2 h-screen w-auto cursor-pointer md:h-auto md:w-4/5"
       />
     </div>
   );
