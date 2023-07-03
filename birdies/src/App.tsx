@@ -8,6 +8,7 @@ function App() {
   const [displayResultTexts, setDisplayResultTexts] = useState(
     Array(19).fill("")
   );
+
   const [resultTotalScore, setResultTotalScore] = useState(0);
 
   const onClickResultButton = () => {
@@ -26,65 +27,77 @@ function App() {
     setResultTotalScore(0);
   };
 
-  const onClickFinishButton = (
-    index: number,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    const scoreCount = scoreCounts[index];
-    const parCount = parCounts[index];
-    console.log(scoreCount); // onClickFinishButton(hoge, event)としたら、hoge番目のスコアが表示される
-    console.log(parCount);
-    if (scoreCount === 1) {
-      setDisplayResultTexts((prevResultTexts) => {
-        console.log(prevResultTexts); // 配列0-18
-        const newResultTexts = [...prevResultTexts];
-        newResultTexts[index] = "ホールインワン";
-        return newResultTexts;
-      });
-    } else if (parCount - 4 === scoreCount) {
-      setDisplayResultTexts((prevResultTexts) => {
-        const newResultTexts = [...prevResultTexts];
-        newResultTexts[index] = "コンドル";
-        return newResultTexts;
-      });
-    } else if (parCount - 3 === scoreCount) {
-      setDisplayResultTexts((prevResultTexts) => {
-        const newResultTexts = [...prevResultTexts];
-        newResultTexts[index] = "アルバトロス";
-        return newResultTexts;
-      });
-    } else if (parCount - 2 === scoreCount) {
-      setDisplayResultTexts((prevResultTexts) => {
-        const newResultTexts = [...prevResultTexts];
-        newResultTexts[index] = "イーグル";
-        return newResultTexts;
-      });
-    } else if (parCount - 1 === scoreCount) {
-      setDisplayResultTexts((prevResultTexts) => {
-        const newResultTexts = [...prevResultTexts];
-        newResultTexts[index] = "バーディー";
-        return newResultTexts;
-      });
-    } else if (parCount === scoreCount) {
-      setDisplayResultTexts((prevResultTexts) => {
-        const newResultTexts = [...prevResultTexts];
-        newResultTexts[index] = "パー";
-        return newResultTexts;
-      });
-    } else if (parCount + 1 === scoreCount) {
-      setDisplayResultTexts((prevResultTexts) => {
-        const newResultTexts = [...prevResultTexts];
-        newResultTexts[index] = "ボギー";
-        return newResultTexts;
-      });
-    } else if (parCount + 2 === scoreCount) {
-      setDisplayResultTexts((prevResultTexts) => {
-        const newResultTexts = [...prevResultTexts];
-        newResultTexts[index] = "ダブルボギー";
-        return newResultTexts;
-      });
+  const getClassByScore = (score: number) => {
+    if (score === 0) {
+      return "hoge";
+    } else if (score >= 1 && score <= 80) {
+      return "fuga";
+    } else if (score >= 81 && score <= 100) {
+      return "piyo";
+    } else if (score >= 101) {
+      return "test";
     }
   };
+
+  // const onClickFinishButton = (
+  //   index: number,
+  //   event: React.MouseEvent<HTMLButtonElement>
+  // ) => {
+  //   const scoreCount = scoreCounts[index];
+  //   const parCount = parCounts[index];
+  //   console.log(scoreCount); // onClickFinishButton(hoge, event)としたら、hoge番目のスコアが表示される
+  //   console.log(parCount);
+  //   if (scoreCount === 1) {
+  //     setDisplayResultTexts((prevResultTexts) => {
+  //       console.log(prevResultTexts); // 配列0-18
+  //       const newResultTexts = [...prevResultTexts];
+  //       newResultTexts[index] = "ホールインワン";
+  //       return newResultTexts;
+  //     });
+  //   } else if (parCount - 4 === scoreCount) {
+  //     setDisplayResultTexts((prevResultTexts) => {
+  //       const newResultTexts = [...prevResultTexts];
+  //       newResultTexts[index] = "コンドル";
+  //       return newResultTexts;
+  //     });
+  //   } else if (parCount - 3 === scoreCount) {
+  //     setDisplayResultTexts((prevResultTexts) => {
+  //       const newResultTexts = [...prevResultTexts];
+  //       newResultTexts[index] = "アルバトロス";
+  //       return newResultTexts;
+  //     });
+  //   } else if (parCount - 2 === scoreCount) {
+  //     setDisplayResultTexts((prevResultTexts) => {
+  //       const newResultTexts = [...prevResultTexts];
+  //       newResultTexts[index] = "イーグル";
+  //       return newResultTexts;
+  //     });
+  //   } else if (parCount - 1 === scoreCount) {
+  //     setDisplayResultTexts((prevResultTexts) => {
+  //       const newResultTexts = [...prevResultTexts];
+  //       newResultTexts[index] = "バーディー";
+  //       return newResultTexts;
+  //     });
+  //   } else if (parCount === scoreCount) {
+  //     setDisplayResultTexts((prevResultTexts) => {
+  //       const newResultTexts = [...prevResultTexts];
+  //       newResultTexts[index] = "パー";
+  //       return newResultTexts;
+  //     });
+  //   } else if (parCount + 1 === scoreCount) {
+  //     setDisplayResultTexts((prevResultTexts) => {
+  //       const newResultTexts = [...prevResultTexts];
+  //       newResultTexts[index] = "ボギー";
+  //       return newResultTexts;
+  //     });
+  //   } else if (parCount + 2 === scoreCount) {
+  //     setDisplayResultTexts((prevResultTexts) => {
+  //       const newResultTexts = [...prevResultTexts];
+  //       newResultTexts[index] = "ダブルボギー";
+  //       return newResultTexts;
+  //     });
+  //   }
+  // };
   const parCountsChange = (index: number, value: number) => {
     if (parCounts[index] < 1) return;
     const newParCount = [...parCounts]; // parCounts配列をコピー　新しい配列の作成
@@ -180,22 +193,20 @@ function App() {
             <tbody>{createTableRows()}</tbody>
           </table>
           <button
-            className="mt-12 h-12 w-40 cursor-pointer bg-gray-500"
-            onClick={(event) => {
-              onClickFinishButton(18, event);
-            }}
-          >
-            Finish
-          </button>
-          <button
             className="mt-12 h-12 w-40 cursor-pointer bg-gray-200"
             onClick={onClickResultButton}
           >
-            Score
+            スコアをみる
           </button>
           <div className="mb-4 mt-8 flex items-center justify-center">
             <p className="mr-2 text-3xl">Score :</p>
-            <p className="result-score text-5xl">{resultTotalScore}</p>
+            <p
+              className={`result-score text-5xl ${getClassByScore(
+                resultTotalScore
+              )}`}
+            >
+              {resultTotalScore}
+            </p>
           </div>
           <p className="text-sm text-blue-600" onClick={onClickResetButton}>
             リセットする
