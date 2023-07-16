@@ -27,15 +27,17 @@ function App() {
     setResultTotalScore(0);
   };
 
-  const getClassByScore = (score: number) => {
+  const addClassByScore = (score: number) => {
     if (score === 0) {
-      return "hoge";
+      return "text-gray-400";
     } else if (score >= 1 && score <= 80) {
-      return "fuga";
+      return "text-red-700";
     } else if (score >= 81 && score <= 100) {
-      return "piyo";
-    } else if (score >= 101) {
-      return "test";
+      return "text-yellow-600";
+    } else if (score >= 101 && score <= 130) {
+      return "text-green-700";
+    } else {
+      return "text-blue-700";
     }
   };
 
@@ -193,7 +195,7 @@ function App() {
             <tbody>{createTableRows()}</tbody>
           </table>
           <button
-            className="mt-12 h-12 w-40 cursor-pointer bg-gray-200"
+            className="mt-12 h-12 w-48 cursor-pointer bg-gray-200"
             onClick={onClickResultButton}
           >
             スコアをみる
@@ -201,14 +203,17 @@ function App() {
           <div className="mb-4 mt-8 flex items-center justify-center">
             <p className="mr-2 text-3xl">Score :</p>
             <p
-              className={`result-score text-5xl ${getClassByScore(
+              className={`result-score text-5xl ${addClassByScore(
                 resultTotalScore
               )}`}
             >
               {resultTotalScore}
             </p>
           </div>
-          <p className="text-sm text-blue-600" onClick={onClickResetButton}>
+          <p
+            className="cursor-pointer text-sm text-blue-600"
+            onClick={onClickResetButton}
+          >
             リセットする
           </p>
         </div>
