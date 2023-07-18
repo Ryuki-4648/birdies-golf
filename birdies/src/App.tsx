@@ -52,6 +52,7 @@ function App() {
     setParCounts(Array(19).fill(1));
     setScoreCounts(Array(19).fill(1));
     setResultTotalScore(0);
+    setDisplayResultTexts(Array(19).fill(""));
   };
 
   const addClassByScore = (score: number) => {
@@ -91,7 +92,7 @@ function App() {
           <td className="w-32">
             <div className="flex items-center justify-center">
               <button
-                className={`text-md h-10 w-10 cursor-pointer rounded-full ${
+                className={`text-md h-6 w-6 cursor-pointer rounded-full md:h-10 md:w-10 ${
                   parCounts[i] < 2
                     ? "cursor-not-allowed bg-gray-200"
                     : "bg-blue-100"
@@ -103,7 +104,7 @@ function App() {
               </button>
               <p className="mx-2 w-4">{parCounts[i]}</p>
               <button
-                className="text-md h-10 w-10 cursor-pointer rounded-full bg-pink-100"
+                className="text-md h-6 w-6 cursor-pointer rounded-full bg-pink-100 md:h-10 md:w-10"
                 onClick={(event) => parCountsChange(i, 1)}
               >
                 ＋
@@ -113,7 +114,7 @@ function App() {
           <td className="w-32">
             <div className="flex items-center justify-center p-1">
               <button
-                className={`text-md h-10 w-10 cursor-pointer rounded-full ${
+                className={`text-md h-6 w-6 cursor-pointer rounded-full md:h-10 md:w-10 ${
                   scoreCounts[i] < 2
                     ? "cursor-not-allowed bg-gray-200"
                     : "bg-blue-100"
@@ -125,7 +126,7 @@ function App() {
               </button>
               <p className="mx-2 w-4">{scoreCounts[i]}</p>
               <button
-                className="text-md h-10 w-10 cursor-pointer rounded-full bg-pink-100"
+                className="text-md h-6 w-6 cursor-pointer rounded-full bg-pink-100 md:h-10 md:w-10"
                 onClick={(event) => scoreCountsChange(i, 1)}
               >
                 ＋
@@ -133,10 +134,10 @@ function App() {
             </div>
           </td>
           <td>
-            <p className="text-sm">{calculateScoreDifference(i)}</p>
+            <p className="text-xs md:text-sm">{calculateScoreDifference(i)}</p>
           </td>
           <td>
-            <p className="text-sm">
+            <p className="text-xs md:text-sm">
               {displayResultTexts[i] ? displayResultTexts[i] : ""}
             </p>
           </td>
@@ -148,22 +149,22 @@ function App() {
   return (
     <div className="App relative">
       <Header />
-      <div className="box absolute left-1/2 top-1/2 z-10 overflow-y-scroll bg-white p-4">
+      <div className="box absolute left-1/2 top-1/2 z-10 flex w-11/12 justify-center overflow-x-scroll overflow-y-scroll bg-white px-2 py-4 md:w-5/12 md:overflow-x-auto md:pl-0 md:pr-4">
         <div className="wrap">
           <table className="w-full">
             <thead>
               <tr>
-                <th className="h-12 w-20 text-xl">ホール</th>
-                <th className="h-12 w-32 text-xl">パー</th>
-                <th className="h-12 w-32 text-xl">スコア</th>
-                <th className="h-12 text-xl">キロク</th>
-                <th className="h-12 text-xl">メモ</th>
+                <th className="text-md h-12 w-20 md:text-xl">ホール</th>
+                <th className="text-md h-12 w-32 md:text-xl">パー</th>
+                <th className="text-md h-12 w-32 md:text-xl">スコア</th>
+                <th className="text-md h-12 w-24 md:text-xl">キロク</th>
+                <th className="text-md h-12 w-32 md:text-xl">メモ</th>
               </tr>
             </thead>
             <tbody>{createTableRows()}</tbody>
           </table>
           <button
-            className="mt-12 h-12 w-48 cursor-pointer bg-gray-200"
+            className="mt-12 h-12 w-48 cursor-pointer bg-gray-200 duration-300 hover:bg-red-400 hover:text-white"
             onClick={onClickResultButton}
           >
             スコアをみる
@@ -179,7 +180,7 @@ function App() {
             </p>
           </div>
           <p
-            className="cursor-pointer text-sm text-blue-600"
+            className="cursor-pointer text-sm text-blue-600 duration-300 hover:text-gray-400"
             onClick={onClickResetButton}
           >
             リセットする
@@ -189,7 +190,7 @@ function App() {
       <img
         src="./bg01.png"
         alt=""
-        className="bg01 z-1 absolute left-1/2 top-1/2 h-screen w-auto cursor-pointer md:h-auto md:w-4/5"
+        className="bg01 z-1 absolute left-1/2 top-1/2 h-screen -translate-x-1/2 -translate-y-1/2 cursor-pointer lg:h-full"
       />
     </div>
   );

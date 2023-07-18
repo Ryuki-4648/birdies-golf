@@ -13,22 +13,9 @@ body {
   background-color: #98d3b5;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .box {
   transform: translate(-50%, -50%);
-  height: 80vh;
+  height: 74vh;
 }
 .box::-webkit-scrollbar {
   width: 12px;
@@ -43,15 +30,10 @@ body {
 }
 .wrap {
   height: 85vh;
-  width: 480px;
 }
 
-.bg01 {
-  transform: translate(-50%, -50%);
-}
 @media (max-width: 768px) {
-  .wrap {
-  }
-  .bg01 {
+  .box {
+    height: 85vh;
   }
 }
