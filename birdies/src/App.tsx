@@ -6,9 +6,9 @@ function App() {
   const [parCounts, setParCounts] = useState(Array(19).fill(1)); // 1-18ホール分のパーを格納する配列。初期値を1とする。
   const [scoreCounts, setScoreCounts] = useState(Array(19).fill(1)); // Array.prototype.fill() 開始位置〜終了位置（までのすべての要素を、静的な値に変更した配列を返す
 
-  // const [displayResultTexts, setDisplayResultTexts] = useState(
-  //   Array(19).fill("")
-  // );
+  const [displayResultTexts, setDisplayResultTexts] = useState(
+    Array(19).fill("")
+  );
 
   const [resultTotalScore, setResultTotalScore] = useState(0);
 
@@ -20,31 +20,32 @@ function App() {
     // console.log(scoreCounts);
     // console.log(parCounts);
     setResultTotalScore(sum);
+
+    const newDisplayResultTexts = scoreCounts.map((score, index) => {
+      const difference = scoreCounts[index] - parCounts[index];
+      if (difference === 0) {
+        return "ホールインワン";
+      } else if (difference === -4) {
+        return "コンドル";
+      } else if (difference === -3) {
+        return "アルバトロス";
+      } else if (difference === -2) {
+        return "イーグル";
+      } else if (difference === -1) {
+        return "バーディー";
+      } else if (difference === 1) {
+        return "ボギー";
+      } else if (difference === 2) {
+        return "ダブルボギー";
+      } else {
+        return "";
+      }
+    });
+    setDisplayResultTexts(newDisplayResultTexts);
   };
 
   const calculateScoreDifference = (index: number) => {
     return scoreCounts[index] - parCounts[index];
-  };
-
-  const displayResultText = (index: number) => {
-    const difference = scoreCounts[index] - parCounts[index];
-    if (difference === 0) {
-      return "ホールインワン";
-    } else if (difference === -4) {
-      return "コンドル";
-    } else if (difference === -3) {
-      return "アルバトロス";
-    } else if (difference === -2) {
-      return "イーグル";
-    } else if (difference === -1) {
-      return "バーディー";
-    } else if (difference === 1) {
-      return "ボギー";
-    } else if (difference === 2) {
-      return "ダブルボギー";
-    } else {
-      return;
-    }
   };
 
   const onClickResetButton = () => {
@@ -135,7 +136,9 @@ function App() {
             <p className="text-sm">{calculateScoreDifference(i)}</p>
           </td>
           <td>
-            <p className="text-sm">{displayResultText(i)}</p>
+            <p className="text-sm">
+              {displayResultTexts[i] ? displayResultTexts[i] : ""}
+            </p>
           </td>
         </tr>
       );
